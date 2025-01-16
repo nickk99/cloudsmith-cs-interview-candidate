@@ -11,7 +11,7 @@ on:
 env:
   CLOUDSMITH_NAMESPACE: "interview-naveen-satwani"
   CLOUDSMITH_REPOSITORY: "interview-naveen-satwani"
-  CLOUDSMITH_SERVICE_SLUG: "example-package"
+  CLOUDSMITH_SERVICE_SLUG: "interview-naveen-satwani"
 
 permissions:
   contents: read
