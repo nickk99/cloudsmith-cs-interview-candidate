@@ -43,8 +43,14 @@ jobs:
       - name: Install Cloudsmith CLI
         run: |
           # Add Cloudsmith GPG key
-          echo "hello"
-          curl -fsSL https://cloudsmith.io/assets/gpg/cloudsmith.asc 
+          curl -fsSL https://cloudsmith.io/assets/gpg/cloudsmith.asc | gpg --dearmor > /usr/share/keyrings/cloudsmith-archive-keyring.gpg
+          
+          # Add Cloudsmith repository
+          echo "deb [signed-by=/usr/share/keyrings/cloudsmith-archive-keyring.gpg] https://dl.cloudsmith.io/public/cloudsmith/cloudsmith-cli/deb/ubuntu/ stable main" | tee /etc/apt/sources.list.d/cloudsmith-cloudsmith-cli.list
+
+          # Update and install cloudsmith-cli
+          apt-get update
+          apt-get install cloudsmith-cli -y
 
       - name: Push package to Cloudsmith
         run: |
