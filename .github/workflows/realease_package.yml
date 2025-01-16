@@ -10,8 +10,8 @@ on:
 
 env:
   CLOUDSMITH_NAMESPACE: "interview-naveen-satwani"
-  CLOUDSMITH_REPOSITORY: "staging"
-  CLOUDSMITH_SERVICE_SLUG: "interview-naveen-satwani"
+  CLOUDSMITH_REPOSITORY: "interview-naveen-satwani"
+  CLOUDSMITH_SERVICE_SLUG: "example-package"
 
 permissions:
   contents: read
@@ -35,13 +35,6 @@ jobs:
 
       - name: List directory contents
         run: ls -la dist/
-        shell: bash
-
-      - name: Debug - Print Environment Variables
-        run: |
-          echo "CLOUDSMITH_NAMESPACE: ${{ env.CLOUDSMITH_NAMESPACE }}"
-          echo "CLOUDSMITH_REPOSITORY: ${{ env.CLOUDSMITH_REPOSITORY }}"
-          echo "CLOUDSMITH_SERVICE_SLUG: ${{ env.CLOUDSMITH_SERVICE_SLUG }}"
         shell: bash
 
       - name: Install Cloudsmith CLI
