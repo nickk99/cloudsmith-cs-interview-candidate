@@ -7,6 +7,7 @@ build-backend = "hatchling.build"
 authors = [
   { name="Example Author", email="author@example.com" },
 ]
+name = "example-package"
 description = "A small example package"
 dynamic = ["version"]
 readme = "README.md"
