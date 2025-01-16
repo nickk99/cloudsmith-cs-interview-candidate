@@ -36,3 +36,4 @@ The process involves three workflows:
 **Authentication**
 
 OIDC Authentication is used to authenticate with Cloudsmith.
+
