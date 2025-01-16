@@ -37,6 +37,13 @@ jobs:
         run: ls -la dist/
         shell: bash
 
+      - name: Debug - Print Environment Variables
+        run: |
+          echo "CLOUDSMITH_NAMESPACE: ${{ env.CLOUDSMITH_NAMESPACE }}"
+          echo "CLOUDSMITH_REPOSITORY: ${{ env.CLOUDSMITH_REPOSITORY }}"
+          echo "CLOUDSMITH_SERVICE_SLUG: ${{ env.CLOUDSMITH_SERVICE_SLUG }}"
+        shell: bash
+
       - name: Install Cloudsmith CLI
         run: pip install --upgrade cloudsmith-cli
 
@@ -48,4 +55,3 @@ jobs:
           fi
           cloudsmith push python ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_REPOSITORY }} dist/*.tar.gz --republish
         shell: bash
-        
