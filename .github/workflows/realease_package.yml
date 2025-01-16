@@ -32,10 +32,6 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Debug - Print branch name
-        run: echo "Branch name: ${{ github.ref }}"
-        shell: bash
-
       - name: List directory contents
         run: ls -la dist/
         shell: bash
