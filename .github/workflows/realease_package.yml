@@ -38,11 +38,6 @@ jobs:
         run: ls -la dist/
         shell: bash
 
-      - name: Install Cloudsmith CLI
-        run: |
-          curl -fsSL https://cloudsmith.io/docs/cli/installation/ | bash
-          sudo apt-get install -y cloudsmith-cli
-
       - name: Push package to Cloudsmith
         run: |
           if ! ls dist/*.tar.gz 1> /dev/null 2>&1; then
