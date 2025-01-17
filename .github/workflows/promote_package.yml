@@ -10,10 +10,10 @@ on:
 
 env:
   CLOUDSMITH_NAMESPACE: ${{ vars.CLOUDSMITH_NAMESPACE }}
-  CLOUDSMITH_STAGING_REPO: 'production'
-  CLOUDSMITH_PRODUCTION_REPO: 'staging'
+  CLOUDSMITH_STAGING_REPO: 'staging'
+  CLOUDSMITH_PRODUCTION_REPO: 'production'
   CLOUDSMITH_SERVICE_SLUG: ${{ vars.CLOUDSMITH_SERVICE_SLUG }}
-  PACKAGE_NAME: 'example-package'
+  PACKAGE_NAME: 'example_package'
 
 permissions:
   id-token: write
@@ -29,18 +29,22 @@ jobs:
         with:
           oidc-namespace: ${{ env.CLOUDSMITH_NAMESPACE }}
           oidc-service-slug: ${{ env.CLOUDSMITH_SERVICE_SLUG }}
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
 
       - name: Get package identifier and promote
         run: |
           # Query for the package and get its identifier
           PACKAGE_QUERY="filename:${PACKAGE_NAME}-${{ github.event.inputs.package_version }}.tar.gz"
           echo "Searching for package with query: $PACKAGE_QUERY"
+          echo "namespace: $CLOUDSMITH_NAMESPACE staging_repo: $CLOUDSMITH_STAGING_REPO"
           
           PACKAGE_DATA=$(cloudsmith list package ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -q "$PACKAGE_QUERY" -F json)
-          
+          echo "package_data: $PACKAGE_DATA"          
+
           # Extract the identifier_perm using jq
           IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].identifier_perm')
-          
+          echo "Identifier: $IDENTIFIER"     
+
           if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
             echo "Failed to find package identifier"
             exit 1
