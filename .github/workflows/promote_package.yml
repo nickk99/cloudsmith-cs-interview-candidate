@@ -38,10 +38,12 @@ jobs:
           echo "namespace: $CLOUDSMITH_NAMESPACE staging_repo: $CLOUDSMITH_STAGING_REPO"
           
           PACKAGE_DATA=$(cloudsmith list package ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -q "$PACKAGE_QUERY" -F json)
-          
+          echo "package_data: $PACKAGE_DATA"          
+
           # Extract the identifier_perm using jq
           IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].identifier_perm')
-          
+          echo "Identifier: $IDENTIFIER"     
+
           if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
             echo "Failed to find package identifier"
             exit 1
